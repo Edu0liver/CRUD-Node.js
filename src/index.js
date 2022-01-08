@@ -11,7 +11,6 @@ app.use(express.json());
 const users = [];
 
 function checksExistsUserAccount(request, response, next) {
-  // Complete aqui
   const { username } = request.headers;
 
   const user = users.find((user)=> user.username === username);
@@ -26,7 +25,6 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 app.post('/users', (request, response) => {
-  // Complete aqui
   const { name, username } = request.body;
 
   const userAlreadyExists = users.find((user)=> user.username === username);
@@ -36,7 +34,7 @@ app.post('/users', (request, response) => {
   };
 
   const user = { 
-    id: uuidv4(), // precisa ser um uuid
+    id: uuidv4(),
     name,
     username,
     todos: []
@@ -48,19 +46,17 @@ app.post('/users', (request, response) => {
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
   const { user } = request;
 
   return response.json(user.todos);
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
   const { user } = request;
   const { title, deadline } = request.body;
 
   const todo = { 
-    id: uuidv4(), // precisa ser um uuid
+    id: uuidv4(),
     title,
     done: false, 
     deadline: new Date(deadline), 
@@ -73,7 +69,6 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
   const { title, deadline } = request.body;
   const { user } = request;
   const { id } = request.params;
@@ -91,7 +86,6 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
   const { user } = request;
   const { id } = request.params;
 
@@ -107,7 +101,6 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
   const { user } = request;
   const { id } = request.params;
 
